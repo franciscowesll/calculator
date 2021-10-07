@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    
+    <link rel="stylesheet" type="text/css" href="calculadora.css">
+    
+    <title>Calculadora</title>
+</head>
+<body>
+    <div class="f_calc"></div>
+    <div id="calculadora">
+        <div id="tela">
+            <form name='calc'>
+                <div id="tela_min"><input type ='text' readonly='Number' value="" id="tela_calc" cols="30" rows="10" name="txt"> </div>
+                <div id="tela_max"><input type="text" id="sp1" class="sp1" readonly="Number" value="" name="numb"></div>
+            </form>    
+        </div>
+        <div id="teclas">
+           <section id="s1">
+            <button id="bc" onclick="document.calc.numb.value=''">C</button>
+            <button id="bce" onclick="inserirnumero()">CE</button>
+           </section> 
+           
+           <section id="s2">
+            <button id="n7" onclick="calculadora.digitos(calculadora.numeros[7])">7</button>
+            <button id="n8" onclick="calculadora.digitos(calculadora.numeros[8])">8</button>
+            <button id="n9" onclick="calculadora.digitos(calculadora.numeros[9])">9</button>
+            </section>
+            
+            <section id="s3">
+            <button id="n4" onclick="calculadora.digitos(calculadora.numeros[4])">4</button>
+            <button id="n5" onclick="calculadora.digitos(calculadora.numeros[5])">5</button>
+            <button id="n6" onclick="calculadora.digitos(calculadora.numeros[6])">6</button>
+            </section>
+
+            <section id="s4">
+            <button id="n1" onclick="calculadora.digitos(calculadora.numeros[1])">1</button>
+            <button id="n2" onclick="calculadora.digitos(calculadora.numeros[2])">2</button>
+            <button id="n3" onclick="calculadora.digitos(calculadora.numeros[3])">3</button>
+            </section>
+            
+            <section id="s5"><button id="n0" onclick="calculadora.digitos(calculadora.numeros[0])">0</button></section>
+
+            <section id="s6">
+                <div id="divisao"><button id="b_divisao" onclick="calculadora.digitos_simb(calculadora.simbols[3])"><span>/</span></button></div>
+                <div id="multp"><button id="b_multp" onclick="calculadora.digitos_simb(calculadora.simbols[2])"><span>*</span></button></div>
+                <div id="subtr"><button id="b_subtr" onclick="calculadora.digitos_simb(calculadora.simbols[1])"><span>-</span></button></div>
+                <div id="soma"><button id="b_soma" onclick="calculadora.digitos_simb(calculadora.simbols[0])"><span>+</span></button></div>
+                <div id="igual"><button id="b_igual" onclick="calculadora.resultado()"><span>=</span></button></div>       
+            </section>
+        </div>    
+    </div>   
+
+<script type="text/javascript">
+    
+ function inserirnumero(){
+    document.calc.numb.value = '0';
+    document.calc.txt.value = '';
+ }; 
+
+ const calculadora={   
+     numeros: [0,1,2,3,4,5,6,7,8,9],
+     simbols: ['+','-','*','/','='],
+     
+     memoria:[],
+     memoria_curta: '',
+     digitos:  function(x){
+            document.calc.numb.value += x;
+            this.memoria_curta += ''+x;
+            console.log('valor anterior da memoria curta', this.memoria_curta);
+           
+            },
+     digitos_simb: function(x){
+         document.calc.numb.value += x;
+         this.memoria.push(this.memoria_curta);
+         this.memoria.push(x);
+         this.memoria_curta= '';
+         console.log(this.memoria);
+         console.log('valor da memoria curta:', this.memoria_curta);
+     },       
+
+    
+       
+           
+     resultado: function(){
+     
+       this.memoria.push(this.memoria_curta);
+       
+       for (i=0; i <= this.memoria.length; i++){      
+            if(this.memoria[i] === this.simbols[0]){
+                let soma = Number(this.memoria[i-1]) + Number(this.memoria[i+1]);
+                  document.calc.numb.value = soma; 
+                 
+                  this.memoria_curta = soma;
+                  console.log(this.memoria);
+              }
+              if(this.memoria[i] === this.simbols[1]){
+                let soma = Number(this.memoria[i-1]) - Number(this.memoria[i+1]);
+                  document.calc.numb.value = soma; 
+                 
+                  this.memoria_curta = soma;
+                  console.log(this.memoria);
+              }
+              if(this.memoria[i] === this.simbols[2]){
+                let soma = Number(this.memoria[i-1]) * Number(this.memoria[i+1]);
+                  document.calc.numb.value = soma; 
+                 
+                  this.memoria_curta = soma;
+                  console.log(this.memoria);
+              }
+              if(this.memoria[i] === this.simbols[3]){
+                let soma = Number(this.memoria[i-1]) / Number(this.memoria[i+1]);
+                  document.calc.numb.value = soma; 
+                 
+                  this.memoria_curta = soma;
+                  console.log(this.memoria);
+              }
+             
+               
+        };
+    }
+
+           };
+           
+           
+            
+       
+
+    
+ 
+     
+        
+
+         
+          
+    
+    
+        
+</script>
+
+</body>
+</html>
